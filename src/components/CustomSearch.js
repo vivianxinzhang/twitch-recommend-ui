@@ -33,14 +33,13 @@ class CustomSearch extends React.Component {
   render = () => {
     return (
       <>
-        <Button icon={<SearchOutlined />} style = { {margin: '60px'} }>
-          Custom Search
-        </Button>
+        <Button shape="round" onClick={this.searchOnClick} icon={<SearchOutlined />} style={{ marginLeft: '20px', marginTop: '20px'}}>
+          Custom Search</Button>
         <Modal
-          title="Custom Search"
-          visible={true}
-          onCancel={true}
-          footer={null}
+            title="Custom Search"
+            visible={this.state.displayModal}
+            onCancel={this.handleCancel}
+            footer={null}
         >
           <Form
             name="custom_search"
