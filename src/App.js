@@ -3,8 +3,9 @@ import React from 'react';
 import {Button, Col, Layout, Menu, message, Row} from 'antd';
 import Login from './components/Login';
 import Register from './components/Register';
-import {getTopGames, logout} from './utils';
+import {getRecommendations, getTopGames, logout, searchGameById} from './utils';
 import Favorites from './components/Favorites';
+import {LikeOutlined, FireOutlined} from '@ant-design/icons';
 import CustomSearch from './components/CustomSearch';
 import Home from './components/Home';
 import SubMenu from 'antd/lib/menu/SubMenu';
@@ -21,6 +22,23 @@ class App extends React.Component {
             STREAM: [],
             CLIP: [],
         }
+    }
+
+    onGameSelect = ({key}) => {
+        if (key === 'Recommendation') {
+            getRecommendations().then((data) => {
+                this.setState({
+                    resources: data,
+                })
+            })
+            return; // quick return
+        }
+
+        searchGameById(key).then((data) => {
+            this.setState({
+                resources: data,
+            })
+        })
     }
 
     customSearchOnSuccess = (data) => {
@@ -67,6 +85,7 @@ class App extends React.Component {
             <Header>
                 <Row justify="space-between">
                     <Col>
+                        // 用户已经登陆的话 显示favorite
                         {
                             this.state.loggedIn &&
                             <Favorites/>
@@ -90,27 +109,26 @@ class App extends React.Component {
             <Layout>
                 <Sider width={300} className="site-layout-background">
                     <CustomSearch onSuccess={this.customSearchOnSuccess}/>
-                    <Menu onSelect={() => {
-                    }}>
+                    <Menu
+                        mode="inline"
+                        onSelect={this.onGameSelect}
+                        style={{ marginTop: '10px' }}
+                    >
                         <Menu.Item key="Recommendataion">
                             Recommend for you!
                         </Menu.Item>
-                        <SubMenu title="submenu1"/>
-                        <SubMenu title="submenu2"/>
-                        <SubMenu title="submenu3"/>
-                        <SubMenu title="Popular Games">
+                        <SubMenu key="Popular Games" title="Popular Games">
                             {
                                 this.state.topGames.map((game) => {
                                     return (
                                         <Menu.Item key={game.id}>
-                                            {/* <img
-                        alt="Placeholder"
-                        src={game.box_art_url.replace('{height}', '40').replace('{width}', '40')}
-                        style={{ borderRadius: '50%', marginRight: '20px' }}
-                      /> */}
+                                            <img
+                                                alt="Placeholder"
+                                                src={game.box_art_url.replace('{height}', '40').replace('{width}', '40')}
+                                            />
                                             <span>
-                        {game.name}
-                      </span>
+                                                {game.name}
+                                            </span>
                                         </Menu.Item>
                                     )
                                 })

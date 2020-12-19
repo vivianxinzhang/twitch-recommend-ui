@@ -30,7 +30,7 @@ class Favorite extends React.Component {
   onFavoriteClick = () => {
     getFavoriteItem()
     .then(
-      (data) => {
+      (data) => { // data is favorite item list returned from backend
         console.log(data);
         this.setState({
           data,
@@ -54,7 +54,8 @@ class Favorite extends React.Component {
         > My Favorite </Button>
         <Drawer title = "My Favorite" placement = "right" width = {720} 
           visible = {this.state.displayDrawer}
-          onClose={this.onDrawerClose}>
+          onClose={this.onDrawerClose}
+        >
           <div>  item 1 </div>
           <div>  item 2 </div>
           <div>  item 3 </div>
@@ -109,15 +110,6 @@ class Favorite extends React.Component {
             </SubMenu>
         </Menu>
 
-        <Menu
-        // onClick={this.handleClick}
-        // style={{ width: 256 }}
-        // defaultSelectedKeys={['1']}
-        // defaultOpenKeys={['sub1']}
-        // mode="inline"
-      >
-
-      </Menu>
           
       </>
     )
