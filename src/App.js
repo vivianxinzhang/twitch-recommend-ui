@@ -23,6 +23,15 @@ class App extends React.Component {
         }
     }
 
+    customSearchOnSuccess = (data) => {
+        console.log(this.state.resources);
+        console.log(data);
+        this.setState({
+            resources: data
+        })
+        console.log(this.state.resources);
+    }
+
     signinOnSuccess = () => {
         this.setState({
             loggedIn: true
@@ -38,12 +47,6 @@ class App extends React.Component {
                 message.success(`Successfull signed out`);
             }).catch((err) => {
             message.error(err.message);
-        })
-    }
-
-    customSearchOnSuccess = (data) => {
-        this.setState({
-            resources: data,
         })
     }
 
@@ -86,7 +89,7 @@ class App extends React.Component {
             </Header>
             <Layout>
                 <Sider width={300} className="site-layout-background">
-                    <CustomSearch onSuccess={this.signinOnSuccess} />
+                    <CustomSearch onSuccess={this.customSearchOnSuccess}/>
                     <Menu onSelect={() => {
                     }}>
                         <Menu.Item key="Recommendataion">
@@ -126,7 +129,7 @@ class App extends React.Component {
                         }}
                     >
                         <br/>
-                        <Home resources={this.state.resources}/>
+                        <Home resources={this.state.resources} loggedIn={this.state.loggedIn}/>
                         <Favorites/>
                     </Content>
                 </Layout>

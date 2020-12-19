@@ -14,26 +14,32 @@ class CustomSearch extends React.Component {
     })
   }
  
-  searchOnClick = () => {
+  displayModal = () => {
     this.setState({
       displayModal: true,
     })
   }
- 
-  onSubmit = (data) => {
-    searchGameByName(data.game_name)
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((err) => {
-        message.error(err.message);
-      })
-  }
- 
-  render = () => {
+
+    onSubmit = (data) => {
+        searchGameByName(data.game_name)
+            .then((data) => {
+                console.log(data);
+                console.log(this.props);
+                this.setState({
+                    displayModal: false,
+                })
+                this.props.onSuccess(data); // onSuccess={this.customSearchOnSuccess} from App.js
+            })
+            .catch((err) => {
+                message.error(err.message);
+            })
+    }
+
+
+    render = () => {
     return (
       <>
-        <Button shape="round" onClick={this.searchOnClick} icon={<SearchOutlined />} style={{ marginLeft: '20px', marginTop: '20px'}}>
+        <Button shape="round" onClick={this.displayModal} icon={<SearchOutlined />} style={{ marginLeft: '20px', marginTop: '20px'}}>
           Custom Search</Button>
         <Modal
             title="Custom Search"

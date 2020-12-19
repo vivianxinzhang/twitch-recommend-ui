@@ -1,12 +1,13 @@
 import React from 'react';
 import { Button, Card, List, Tabs, Tooltip } from 'antd';
+import { StarOutlined } from '@ant-design/icons';
 
-const {TabPane} = Tabs;
+const { TabPane } = Tabs;
 
 const tabKeys = {
-    Streams: 'streams',
+    Streams: 'stream',
     Videos: 'videos',
-    Clips: 'clips'
+    Clips: 'clips',
 }
 
 const processUrl = (url) => url
@@ -23,10 +24,10 @@ const renderCardTitle = (item, loggedIn) => {
             {
                 loggedIn &&
                 <Tooltip title="Add to favorite list">
-                    <Button shape="circle" />
+                    <Button shape="circle" icon={<StarOutlined />} />
                 </Tooltip>
             }
-            <div>
+            <div style={{ overflow: 'hidden', textOverflow: 'ellipsis', width: 450 }}>
                 <Tooltip title={title}>
                     <span>{title}</span>
                 </Tooltip>
@@ -38,19 +39,18 @@ const renderCardTitle = (item, loggedIn) => {
 const renderCardGrid = (data, loggedIn) => {
     return (
         <List
-            // grid={{
-            //     xs: 1,
-            //     sm: 2,
-            //     md: 4,
-            //     lg: 4,
-            //     xl: 6,
-            // }}
+            grid={{
+                xs: 1,
+                sm: 2,
+                md: 4,
+                lg: 4,
+                xl: 6,
+            }}
             dataSource={data}
             renderItem={item => (
                 <List.Item style={{ marginRight: '20px' }}>
                     <Card
-                        // title={renderCardTitle(item, loggedIn)}
-                        title="title"
+                        title={renderCardTitle(item, loggedIn)}
                     >
                         <a href={item.url} target="_blank" rel="noopener noreferrer">
                             <img
@@ -65,27 +65,25 @@ const renderCardGrid = (data, loggedIn) => {
     )
 }
 
-
-const Home = (resources, loggedIn) => {
+const Home = ({ resources, loggedIn }) => {
     const {VIDEO, STREAM, CLIP} = resources;
     return (
         <Tabs style = {{marginTop: '60px'}, {marginBottom: '20px'},  {height: '300px'}}>
-            <TabPane key={tabKeys.Streams} tab="Streams">
-                display stream card
+            <TabPane key={tabKeys.Streams} tab="Streams" forceRender={true}>
                 {renderCardGrid(STREAM, loggedIn)}
             </TabPane>
-            <TabPane key={tabKeys.Videos} tab="Videos">
-                display video card
+            <TabPane key={tabKeys.Videos} tab="Videos" forceRender={true}>
                 {renderCardGrid(VIDEO, loggedIn)}
             </TabPane>
-            <TabPane key={tabKeys.Clips} tab="Clip">
-                display clip card
+            <TabPane key={tabKeys.Clips} tab="Clip" forceRender={true}>
                 {renderCardGrid(CLIP, loggedIn)}
             </TabPane>
         </Tabs>
     )
 }
 
-
-
 export default Home;
+
+
+
+
