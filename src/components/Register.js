@@ -20,6 +20,7 @@ class Register extends React.Component {
     })
   }
  
+  // call login utility function
   onFinish = (data) => {
     register(data)
       .then(() => {

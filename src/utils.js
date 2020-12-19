@@ -1,15 +1,15 @@
-const SERVER_ORIGIN = '';
+const SERVER_ORIGIN = '/jupiter';
  
 const loginUrl = `${SERVER_ORIGIN}/login`;
 
 export const login = (credential) => {
-    return fetch(loginUrl, {
+    return fetch(loginUrl, {  // fetch 返回promise    
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      credentials: 'include',
-      body: JSON.stringify(credential)
+      credentials: 'include', // 允许 cookie/ session ID 的传递
+      body: JSON.stringify(credential)  // 把后端返回的东西压成 string 放在body里
     }).then((response) => {
       if (response.status !== 200) {
         throw Error('Fail to log in');
@@ -17,6 +17,10 @@ export const login = (credential) => {
    
       return response.json();
     })
+    // .then 这种用法不会 block 后面的代码 前面的代码开始执行后 就放进queue里 
+    // .then的代码会被 delay到fetch返回后执行
+    // fetch需要一段时间 不需要等它完成 才能执行后面的代码
+    // ... 如果这里有其它代码
   }
    
   const registerUrl = `${SERVER_ORIGIN}/register`;

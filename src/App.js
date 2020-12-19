@@ -5,12 +5,13 @@ import Login from './components/Login';
 import Register from './components/Register';
 import { logout } from './utils';
 import Favorites from './components/Favorites';
+import CustomSearch from './components/CustomSearch';
 
 const { Header, Content, Sider } = Layout;
  
 class App extends React.Component {
   state = {
-    loggedIn: false
+    loggedIn: true
   }
 
   signinOnSuccess = () => {
@@ -34,7 +35,7 @@ class App extends React.Component {
   render = () => (
     <Layout>
       <Header>
-        <Row justify="space-between">
+        <Row justify = "space-between"> 
             <Col>
               {
                 this.state.loggedIn &&
@@ -58,7 +59,7 @@ class App extends React.Component {
       </Header>
       <Layout>
         <Sider width={300} className="site-layout-background">
-          {'Sider'}
+          <CustomSearch />
         </Sider>
         <Layout style={{ padding: '24px' }}>
           <Content
@@ -70,7 +71,10 @@ class App extends React.Component {
               overflow: 'auto'
             }}
           >
-            {'Home'} 
+            {'Home'
+            } 
+            <br/>
+            <Favorites />
           </Content>
         </Layout>
       </Layout>

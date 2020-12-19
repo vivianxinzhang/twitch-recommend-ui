@@ -2,63 +2,70 @@ import React from 'react';
 import { Menu, Button, Drawer, message } from 'antd';
 import { EyeOutlined, YoutubeOutlined, VideoCameraOutlined, StarFilled } from '@ant-design/icons';
 import { getFavoriteItem } from '../utils';
- 
+
 const { SubMenu } = Menu;
+
 const MenuKey = {
   Streams: 'streams',
   Videos: 'videos',
   Clips: 'clips'
 }
-class Favorites extends React.Component {
+
+class Favorite extends React.Component {
   state = {
     displayDrawer: false,
     data: {
-      VIDEO: [],
-      STREAM: [],
-      CLIP: [],
+        VIDEO: [],
+        STREAM: [],
+        CLIP: []
     }
   }
- 
+
   onDrawerClose = () => {
     this.setState({
-      displayDrawer: false,
+      displayDrawer : false,
     })
   }
- 
+
   onFavoriteClick = () => {
     getFavoriteItem()
-      .then((data) => {
+    .then(
+      (data) => {
+        console.log(data);
         this.setState({
           data,
-          displayDrawer: true,
+          displayDrawer: true
+          
         })
-      }).catch((err) => {
-        message.error(err.message);
-      })
+      }
+    ).catch((err) => {
+      message.error(err.message);
+    })
   }
- 
+
   render = () => {
     const { VIDEO, STREAM, CLIP } = this.state.data;
- 
+
     return (
       <>
-        <Button type="primary" shape="round" onClick={this.onFavoriteClick} icon={<StarFilled />}>
-          My Favorites</Button>
-        <Drawer
-          title="My Favorites"
-          placement="right"
-          width={720}
-          visible={this.state.displayDrawer}
-          onClose={this.onDrawerClose}
-        >
-          <Menu
-            mode="inline"
-            defaultOpenKeys={[MenuKey.Streams]}
-            style={{ height: '100%', borderRight: 0 }}
-            selectable={false}
-          >
-            <SubMenu key={MenuKey.Streams} icon={<EyeOutlined />} title="Streams">
+        <Button type = "primary" shape = "round" style = {{marginTop: '20px'}}
+          icon={<StarFilled />}
+          onClick = {this.onFavoriteClick}
+        > My Favorite </Button>
+        <Drawer title = "My Favorite" placement = "right" width = {720} 
+          visible = {this.state.displayDrawer}
+          onClose={this.onDrawerClose}>
+          <div>  item 1 </div>
+          <div>  item 2 </div>
+          <div>  item 3 </div>
+        </Drawer>
+        <Menu style = { {height: '100%', marginTop: '60px'}}>
+            menu
+            <SubMenu key = {MenuKey.Streams} title="Stream" icon = {<EyeOutlined />} style = { {marginTop: '20px'}}>
+              <Menu.Item key="1">Option 1</Menu.Item>
+              <Menu.Item key="2">Option 2</Menu.Item>
               {
+                
                 STREAM.map((item) => {
                   return (
                     <Menu.Item key={item.id}>
@@ -70,7 +77,9 @@ class Favorites extends React.Component {
                 })
               }
             </SubMenu>
-            <SubMenu key={MenuKey.Videos} icon={<YoutubeOutlined />} title="Videos">
+            <SubMenu key = {MenuKey.Videos} title="Video" icon = {<EyeOutlined />} style = { {marginTop: '20px'}}>
+              <Menu.Item key="1">Option 1</Menu.Item>
+              <Menu.Item key="2">Option 2</Menu.Item>
               {
                 VIDEO.map((item) => {
                   return (
@@ -83,7 +92,9 @@ class Favorites extends React.Component {
                 })
               }
             </SubMenu>
-            <SubMenu key={MenuKey.Clips} icon={<VideoCameraOutlined />} title="Clips">
+            <SubMenu key = {MenuKey.CLIP} title="Clip" icon = {<EyeOutlined />} style = { {marginTop: '20px'}}>
+              <Menu.Item key="1">Option 1</Menu.Item>
+              <Menu.Item key="2">Option 2</Menu.Item>
               {
                 CLIP.map((item) => {
                   return (
@@ -96,11 +107,20 @@ class Favorites extends React.Component {
                 })
               }
             </SubMenu>
-          </Menu>
-        </Drawer>
+        </Menu>
+
+        <Menu
+        // onClick={this.handleClick}
+        // style={{ width: 256 }}
+        // defaultSelectedKeys={['1']}
+        // defaultOpenKeys={['sub1']}
+        // mode="inline"
+      >
+
+      </Menu>
+          
       </>
     )
   }
 }
- 
-export default Favorites;
+export default Favorite;

@@ -20,6 +20,7 @@ class Login extends React.Component {
     })
   }
  
+  // call login utility function
   onFinish = (data) => {
     login(data)
       .then((data) => {
@@ -78,3 +79,4 @@ class Login extends React.Component {
 }
  
 export default Login;
+// default export 在被 别的 文件 import 的时候不用加括号
