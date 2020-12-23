@@ -24,10 +24,12 @@ class Login extends React.Component {
   onFinish = (data) => {
     login(data)
       .then((data) => {
+        console.log(data);
         this.setState({
           displayModal: false,
         })
-        message.success(`Welcome back, ${data.name}`);
+        message.success(`Welcome back, ${data.userId}`);
+        // call signinOnSuccess passed from App component
         this.props.onSuccess();
       }).catch((err) => {
         message.error(err.message);
@@ -66,7 +68,7 @@ class Login extends React.Component {
                 placeholder="Password"
               />
             </Form.Item>
- 
+
             <Form.Item>
               <Button type="primary" htmlType="submit">
                 Login</Button>

@@ -14,7 +14,6 @@ export const login = (credential) => {
       if (response.status !== 200) {
         throw Error('Fail to log in');
       }
-   
       return response.json();
     })
     // .then 这种用法不会 block 后面的代码 前面的代码开始执行后 就放进queue里 

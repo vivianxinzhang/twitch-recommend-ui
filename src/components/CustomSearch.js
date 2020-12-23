@@ -28,7 +28,8 @@ class CustomSearch extends React.Component {
                 this.setState({
                     displayModal: false,
                 })
-                this.props.onSuccess(data); // onSuccess={this.customSearchOnSuccess} from App.js
+                // onSuccess={this.customSearchOnSuccess} passed from App.js
+                this.props.onSuccess(data);
             })
             .catch((err) => {
                 message.error(err.message);
@@ -38,11 +39,14 @@ class CustomSearch extends React.Component {
     render = () => {
         return (
             <>
-                <Button shape="round" onClick={this.displayModal} icon={<SearchOutlined/>}
+                <Button shape="round"
+                        onClick={this.displayModal}
+                        icon={<SearchOutlined/>}
                         style={{marginLeft: '20px', marginTop: '20px'}}>
-                    Custom Search</Button>
+                    Search Game
+                </Button>
                 <Modal
-                    title="Custom Search"
+                    title="Search Game"
                     visible={this.state.displayModal}
                     onCancel={this.handleCancel}
                     footer={null}
@@ -57,10 +61,10 @@ class CustomSearch extends React.Component {
                         >
                             <Input placeholder="Game name"/>
                         </Form.Item>
-
                         <Form.Item>
                             <Button type="primary" htmlType="submit">
-                                Search</Button>
+                                Search
+                            </Button>
                         </Form.Item>
                     </Form>
                 </Modal>
