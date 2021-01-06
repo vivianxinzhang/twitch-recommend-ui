@@ -1,5 +1,6 @@
-const SERVER_ORIGIN = '/jupiter';
- 
+const SERVER_ORIGIN = '';
+// const SERVER_ORIGIN = '/jupiter';
+
 const loginUrl = `${SERVER_ORIGIN}/login`;
 
 export const login = (credential) => {
